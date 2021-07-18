@@ -16,6 +16,10 @@ export default new Vuex.Store({
       const index = state.users.findIndex((x) => x.email === val.email);
       state.users[index] = val;
     },
+    DELETE_USER(state, val) {
+      const index = state.users.findIndex((x) => x.email === val.email);
+      state.users.splice(index, 1);
+    },
   },
   getters: {
     getUsers(state) {
