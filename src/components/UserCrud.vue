@@ -2,7 +2,7 @@
   <div>
     <b-sidebar
       id="user-crud"
-      title="User Create / Edit"
+      :title="editForm ? 'User Update' : 'User Create'"
       backdrop-variant="'info'"
       backdrop
       shadow
