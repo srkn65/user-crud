@@ -15,6 +15,13 @@ export default {
           email: "korkacserkan@gmail.com",
           companyName: "X-WİSE",
         },
+        {
+          firstName: "serkan",
+          lastName: "korkac",
+          age: 19,
+          email: "korkacserkan@gmail.com",
+          companyName: "X-WİSE",
+        },
       ],
       fields: [
         { key: "firstName", label: "First Name", sortable: false },
