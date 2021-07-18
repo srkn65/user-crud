@@ -80,7 +80,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   name: "UserCrud",
   data() {
@@ -94,19 +94,29 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(["getUsers"]),
+  },
   methods: {
     ...mapMutations({
       setUser: "SET_USER",
     }),
     async addUser() {
-      this.setUser(this.form);
-      this.form = {
-        firstName: null,
-        lastName: null,
-        age: null,
-        email: null,
-        companyName: null,
-      };
+      if (!this.emailControl()) {
+        this.setUser(this.form);
+        return (this.form = {
+          firstName: null,
+          lastName: null,
+          age: null,
+          email: null,
+          companyName: null,
+        });
+      }
+      alert("There is a user with the same e-mail");
+    },
+    emailControl() {
+      const control = this.getUsers.some((x) => x.email === this.form.email);
+      return control;
     },
   },
 };

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="getUsers" striped bordered hover></b-table>
+    <b-table
+      :fields="fields"
+      :items="getUsers"
+      striped
+      bordered
+      hover
+    ></b-table>
   </div>
 </template>
 <script>
