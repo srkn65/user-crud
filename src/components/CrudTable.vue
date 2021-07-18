@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="getUsers" striped bordered hover>
+    <b-input v-model="email" placeholder="Filter User Email" class="mb-2">
+    </b-input>
+    <b-table :fields="fields" :items="items" striped bordered hover>
       <template #cell(actions)="data">
         <div>
           <b-button
@@ -52,10 +54,16 @@ export default {
         { key: "actions", label: "Actions", sortable: false },
       ],
       deleteData: null,
+      email: "",
     };
   },
   computed: {
     ...mapGetters(["getUsers"]),
+    items() {
+      return this.email
+        ? this.getUsers.filter((x) => x.email.includes(this.email))
+        : this.getUsers;
+    },
   },
   methods: {
     ...mapMutations({
