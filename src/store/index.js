@@ -12,6 +12,10 @@ export default new Vuex.Store({
     SET_USER(state, val) {
       state.users.push(val);
     },
+    UPDATE_USER(state, val) {
+      const index = state.users.findIndex((x) => x.email === val.email);
+      state.users[index] = val;
+    },
   },
   getters: {
     getUsers(state) {

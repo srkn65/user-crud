@@ -6,9 +6,13 @@
       backdrop-variant="'info'"
       backdrop
       shadow
+      @hidden="form = {}"
     >
       <div class="px-3 py-2">
-        <b-form @submit.prevent="addUser()" ref="user-form">
+        <b-form
+          @submit.prevent="!editForm ? addUser() : editUser()"
+          ref="user-form"
+        >
           <b-form-group
             id="firstName"
             class="mt-3"
@@ -54,6 +58,7 @@
               id="email"
               v-model="form.email"
               placeholder="Enter email"
+              :disabled="editForm ? true : false"
               type="email"
               required
             ></b-form-input>
@@ -71,8 +76,16 @@
               v-model="form.companyName"
             ></b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="success" class="mt-3 w-100" block
+          <b-button
+            v-if="!editForm"
+            type="submit"
+            variant="success"
+            class="mt-3 w-100"
+            block
             >Add User</b-button
+          >
+          <b-button v-else type="submit" variant="info" class="mt-3 w-100" block
+            >Update User</b-button
           >
         </b-form>
       </div>
@@ -83,6 +96,12 @@
 import { mapMutations, mapGetters } from "vuex";
 export default {
   name: "UserCrud",
+  props: {
+    editForm: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       form: {
@@ -94,12 +113,21 @@ export default {
       },
     };
   },
+  watch: {
+    editForm: {
+      handler(to) {
+        Object.assign(this.form, to);
+      },
+      deep: true,
+    },
+  },
   computed: {
     ...mapGetters(["getUsers"]),
   },
   methods: {
     ...mapMutations({
       setUser: "SET_USER",
+      updateUser: "UPDATE_USER",
     }),
     async addUser() {
       if (!this.emailControl()) {
@@ -117,6 +145,12 @@ export default {
     emailControl() {
       const control = this.getUsers.some((x) => x.email === this.form.email);
       return control;
+    },
+    editUser() {
+      this.updateUser(this.form);
+      this.$emit("update", true);
+      alert("updated success");
+      location.reload();
     },
   },
 };

@@ -11,8 +11,8 @@
         <b-icon icon="plus-circle-fill" variant="white"></b-icon
       ></b-button>
     </div>
-    <crud-table />
-    <user-crud />
+    <crud-table @updateform="updateform = $event" />
+    <user-crud :editForm="updateform" />
   </div>
 </template>
 <script>
@@ -21,6 +21,11 @@ import UserCrud from "./components/UserCrud.vue";
 export default {
   components: { CrudTable, UserCrud },
   name: "UserCrudApp",
+  data() {
+    return {
+      updateform: null,
+    };
+  },
 };
 </script>
 <style>
