@@ -1,28 +1,13 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="items" striped bordered hover></b-table>
+    <b-table :fields="fields" :items="getUsers" striped bordered hover></b-table>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      items: [
-        {
-          firstName: "serkan",
-          lastName: "korkac",
-          age: 21,
-          email: "korkacserkan@gmail.com",
-          companyName: "X-WİSE",
-        },
-        {
-          firstName: "serkan",
-          lastName: "korkac",
-          age: 19,
-          email: "korkacserkan@gmail.com",
-          companyName: "X-WİSE",
-        },
-      ],
       fields: [
         { key: "firstName", label: "First Name", sortable: false },
         { key: "lastName", label: "Last Name", sortable: false },
@@ -31,6 +16,9 @@ export default {
         { key: "companyName", label: "Şirket ismi", sortable: false },
       ],
     };
+  },
+  computed: {
+    ...mapGetters(["getUsers"]),
   },
 };
 </script>
